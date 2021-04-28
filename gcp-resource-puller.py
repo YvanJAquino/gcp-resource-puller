@@ -266,24 +266,24 @@ if __name__ == '__main__':
     args = parser.parse_args()
     
     if args.users:
-        users = Users(config, credentials=credentials)
+        users = Users(config, credentials=credentials, logger=logger)
         users.list_all()
     
     if args.meets:
-        meets = Meets(config, credentials=credentials)
+        meets = Meets(config, credentials=credentials, logger=logger)
         meets.list_all()
         
     if args.usage:
-        usage = UserUsage(config, credentials=credentials)
+        usage = UserUsage(config, credentials=credentials, logger=logger)
         usage.list_all_dates()
 
     if args.courses:
         
-        courses = Courses(config, credentials=credentials)
+        courses = Courses(config, credentials=credentials, logger=logger)
         courses.list_all()
 
     if args.course_work:
-        courses = Courses(config, credentials=credentials)
+        courses = Courses(config, credentials=credentials, logger=logger)
         courses.cache_local('id', courses.courseIds)
-        course_work = CourseWork(config, courses.courseIds, credentials=credentials)
+        course_work = CourseWork(config, courses.courseIds, credentials=credentials, logger=logger)
         course_work.list_all_courseWorks()
