@@ -145,6 +145,20 @@ class Meets(Activities):
         self.records = []
         
 
+class Calendar(Activities):
+    
+    """https://googleapis.github.io/google-api-python-client/docs/dyn/admin_reports_v1.html"""
+    
+    def __init__(self, config, credentials=None, logger=None):
+        self.logger = logger
+        self.logger.info('Regenerating Calendar data...')
+        # Calendar is a subset of Activities with applicationName=Calendar
+        super().__init__(config=config, credentials=credentials, logger=self.logger)
+        self.method_parameters = config['resources']['calendar']['method_parameters']
+        self.table_id = config['resources']['calendar']['tableId']
+        self.records = []
+
+
 class UserUsage(Resource):
     
     """https://googleapis.github.io/google-api-python-client/docs/dyn/admin_reports_v1.userUsageReport.html"""
@@ -232,9 +246,9 @@ class CourseWork(Resource):
     def list_all_courseWorks(self):
         for courseId in self.courseIds:
             self.config['resources']['courseWork']['method_parameters']['courseId'] = courseId
-            self.list_all()
-            
+            self.list_all()            
 
+            
 if __name__ == '__main__':
     
     with open('logging.yaml', 'r') as src:
@@ -287,3 +301,7 @@ if __name__ == '__main__':
         courses.cache_local('id', courses.courseIds)
         course_work = CourseWork(config, courses.courseIds, credentials=credentials, logger=logger)
         course_work.list_all_courseWorks()
+        
+    if args.calendar:
+        calendar = Courses(config, credentials=credentials, logger=logger)
+        calendar.list_all()

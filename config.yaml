@@ -20,6 +20,12 @@ resources:
       maxResults: 500
       userKey: all
     tableId: meets
+  calendar:
+    method_parameters:
+      applicationName: calendar
+      maxResults: 500
+      userKey: all
+    tableId: calendar
   userUsage:
     method_parameters:
       date: null
