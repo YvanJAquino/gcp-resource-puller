@@ -11,6 +11,19 @@ from google.oauth2 import service_account
 from googleapiclient import discovery
 from google.cloud import bigquery
 
+import argparse
+import yaml
+import json
+from datetime import datetime, timedelta
+from abc import ABC, abstractmethod
+
+import logging
+from logging.config import dictConfig
+
+from google.oauth2 import service_account
+from googleapiclient import discovery
+from google.cloud import bigquery
+
 class Resource(ABC):
     
     """Defines an abstract base class (a template) for API resources."""
@@ -152,7 +165,7 @@ class Calendar(Activities):
     def __init__(self, config, credentials=None, logger=None):
         self.logger = logger
         self.logger.info('Regenerating Calendar data...')
-        # Calendar is a subset of Activities with applicationName=Calendar
+        # Meets is a subset of Activities with applicationName=Meet
         super().__init__(config=config, credentials=credentials, logger=self.logger)
         self.method_parameters = config['resources']['calendar']['method_parameters']
         self.table_id = config['resources']['calendar']['tableId']
@@ -245,9 +258,15 @@ class CourseWork(Resource):
         
     def list_all_courseWorks(self):
         for courseId in self.courseIds:
+            errors = []
             self.config['resources']['courseWork']['method_parameters']['courseId'] = courseId
-            self.list_all()            
-
+            try:
+                self.list_all()
+            except:
+                errors.append(courseId)
+        if errors:
+            with open('course_work.err', 'w') as src:
+                src.write(json.dumps(errors, indent=2))
             
 if __name__ == '__main__':
     
