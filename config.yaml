@@ -1,0 +1,46 @@
+environment:
+  adminEmail: yvan.aquino@cloud-colosseum.net
+  domain: cloud-colosseum.net
+  projectId: holy-diver-297719
+  scopes:
+  - https://www.googleapis.com/auth/admin.reports.audit.readonly
+  - https://www.googleapis.com/auth/admin.reports.usage.readonly
+  - https://www.googleapis.com/auth/admin.directory.user.readonly
+  - https://www.googleapis.com/auth/classroom.courses.readonly
+  - https://www.googleapis.com/auth/classroom.coursework.students.readonly
+  serviceAccountKey: service.json
+  services:
+    bigquery:
+      datasetId: jobcorps
+      bigqueryBatchSize: 500
+resources:
+  meets:
+    method_parameters:
+      applicationName: meet
+      maxResults: 500
+      userKey: all
+    tableId: meets
+  userUsage:
+    method_parameters:
+      date: null
+      maxResults: 500
+      userKey: all
+    tableId: userUsage
+  users:
+    method_parameters:
+      domain: cloud-colosseum.net
+      maxResults: 500
+      orderBy: email
+    tableId: users
+  courses:
+    method_parameters:
+      pageSize: 500
+      studentId: null
+      teacherId: null
+    tableId: courses
+  courseWork:
+    method_parameters:
+      courseId: null
+      pageSize: 500
+      orderBy: updateTime desc
+    tableId: courseWork

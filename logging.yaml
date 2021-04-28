@@ -1,0 +1,19 @@
+formatters:
+  default:
+    format: '%(asctime)s %(name)-12s %(levelname)-8s %(message)s'
+handlers:
+  stdout:
+    class: logging.StreamHandler
+    formatter: default
+    level: 10
+  logs:
+    class: logging.FileHandler
+    filename: 'logs.log'
+    formatter: default
+    level: 10
+root:
+  handlers:
+  - stdout
+  - logs
+  level: 10
+version: 1
