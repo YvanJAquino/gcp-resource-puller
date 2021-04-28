@@ -277,6 +277,7 @@ if __name__ == '__main__':
     resource_group.add_argument('--usage', action='store_true')
     resource_group.add_argument('--courses', action='store_true')
     resource_group.add_argument('--course_work', action='store_true')
+    resource_group.add_argument('--calendar', action='store_true')
     args = parser.parse_args()
     
     if args.users:
