@@ -8,6 +8,7 @@ environment:
   - https://www.googleapis.com/auth/admin.directory.user.readonly
   - https://www.googleapis.com/auth/classroom.courses.readonly
   - https://www.googleapis.com/auth/classroom.coursework.students.readonly
+  - https://www.googleapis.com/auth/gmail.readonly
   serviceAccountKey: service.json
   services:
     bigquery:
@@ -26,6 +27,30 @@ resources:
       maxResults: 500
       userKey: all
     tableId: calendar
+  login:
+    method_parameters:
+      applicationName: login
+      maxResults: 500
+      userKey: all
+    tableId: login
+  user_accounts:
+    method_parameters:
+      applicationName: user_accounts
+      maxResults: 500
+      userKey: all
+    tableId: user_accounts
+  chat:
+    method_parameters:
+      applicationName: chat
+      maxResults: 500
+      userKey: all
+    tableId: chat
+  drive:
+    method_parameters:
+      applicationName: drive
+      maxResults: 500
+      userKey: all
+    tableId: drive
   userUsage:
     method_parameters:
       date: null
@@ -50,3 +75,7 @@ resources:
       pageSize: 500
       orderBy: updateTime desc
     tableId: courseWork
+  gmailUserProfiles:
+    method_parameters:
+      userId: me
+    tableId: gmailUserProfiles
